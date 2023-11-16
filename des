@@ -1,0 +1,95 @@
+# include <stdio.h>
+# include <string.h>
+
+int main()
+{
+    int key[64]={
+        0,0,0,1,0,0,1,1,
+        0,0,1,1,0,1,0,0,
+        0,1,0,1,0,1,1,1,
+        0,1,1,1,1,0,0,1,
+        1,0,0,1,1,0,1,1,
+        1,0,1,1,1,1,0,0,
+        1,1,0,1,1,1,1,1,
+        1,1,1,1,0,0,0,1
+        };
+class Des
+{
+ public:
+  int keyi[16][48],
+      total[64],
+      left[32],
+      right[32],
+      ck[28],
+      dk[28],
+      expansion[48],
+      z[48],
+      xor1[48],
+      sub[32],
+      p[32],
+      xor2[32],
+      temp[64],
+      pc1[56],
+      ip[64],
+      inv[8][8];
+ 
+  char final[1000];
+  void IP();
+  void PermChoice1();
+  void PermChoice2();
+  void Expansion();
+  void inverse();
+  void xor_two();
+  void xor_oneE(int);
+  void xor_oneD(int);
+  void substitution();
+  void permutation();
+  void keygen();
+  char * Encrypt(char *);
+  char * Decrypt(char *);
+}
+void Des::IP() //Initial Permutation
+{
+    int k=58,i;
+    for(i=0;i<32;i++)
+    {
+       ip[i]=total[k-1];
+       if(k-8>0)  k=k-8;
+       else       k=k+58;
+    }
+    k=57;
+    for( i=32;i<64;i++)
+    {
+        ip[i]=total[k-1];
+        if(k-8>0)   k=k-8;
+        else        k=k+58;
+    }
+}
+void Des::PermChoice1() //Permutation Choice-1
+{
+    int k=57,i;
+    for(i=0;i<28;i++)
+    {
+        pc1[i]=key[k-1];
+        if(k-8>0)    k=k-8;
+        else         k=k+57;
+    }
+    k=63;
+    for( i=28;i<52;i++)
+    {
+        pc1[i]=key[k-1];
+        if(k-8>0)    k=k-8;
+        else         k=k+55;
+    }
+    k=28;
+    for(i=52;i<56;i++)
+    {
+        pc1[i]=key[k-1];
+        k=k-8;
+    }
+ 
+}
+return 0;
+}
+ 
+ 
